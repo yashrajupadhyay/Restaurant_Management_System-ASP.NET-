@@ -1,4 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="login.aspx.cs" Inherits="ProjectASP.login" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="login2_master.aspx.cs" Inherits="ProjectASP.login2_master" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -57,6 +59,13 @@
                     <span>Password</span>
                     <%--<input type="password">--%>
                     <asp:TextBox ID="txtpswd" runat="server"></asp:TextBox>
+                </label>
+                <label>
+                    <span>Select Role</span>
+                    <asp:DropDownList ID="ddlRole" runat="server">
+                        <asp:ListItem Text="User" Value="User"></asp:ListItem>
+                        <asp:ListItem Text="Admin" Value="Admin"></asp:ListItem>
+                    </asp:DropDownList>
                 </label>
                <%-- <button type="button" class="submit">Sign Up</button>--%>
                 <asp:Button ID="btnsignup"  class="submit" runat="server" Text="SIGN UP" OnClick="btnsignup_Click"  />

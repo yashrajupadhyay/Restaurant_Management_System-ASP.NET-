@@ -71,6 +71,7 @@
     <Content Include="about.aspx" />
     <Content Include="Admin\Add_Category.aspx" />
     <Content Include="Admin\Add_Product.aspx" />
+    <Content Include="admin_dashboard.aspx" />
     <Content Include="App_Data\emp_db.mdf" />
     <Content Include="App_Data\emp_db_log.ldf">
       <DependentUpon>emp_db.mdf</DependentUpon>
@@ -205,7 +206,7 @@
     <Content Include="lib\wow\wow.js" />
     <Content Include="lib\wow\wow.min.js" />
     <Content Include="LICENSE.txt" />
-    <Content Include="login.aspx" />
+    <Content Include="login2_master.aspx" />
     <Content Include="menu.aspx" />
     <Content Include="menu.html" />
     <Content Include="order.aspx" />
@@ -213,11 +214,13 @@
     <Content Include="READ-ME.txt" />
     <Content Include="service.html" />
     <Content Include="service.aspx" />
+    <Content Include="show_detailview.aspx" />
     <Content Include="style.css" />
     <Content Include="team.aspx" />
     <Content Include="team.html" />
     <Content Include="testimonial.aspx" />
     <Content Include="testimonial.html" />
+    <Content Include="ViewDetail.aspx" />
     <Content Include="Web.config" />
     <Content Include="index.aspx" />
   </ItemGroup>
@@ -242,6 +245,13 @@
     </Compile>
     <Compile Include="Admin\Add_Product.aspx.designer.cs">
       <DependentUpon>Add_Product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="admin_dashboard.aspx.cs">
+      <DependentUpon>admin_dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="admin_dashboard.aspx.designer.cs">
+      <DependentUpon>admin_dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="booking.aspx.cs">
       <DependentUpon>booking.aspx</DependentUpon>
@@ -273,12 +283,12 @@
     <Compile Include="emp.aspx.designer.cs">
       <DependentUpon>emp.aspx</DependentUpon>
     </Compile>
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="login2_master.aspx.cs">
+      <DependentUpon>login2_master.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="login2_master.aspx.designer.cs">
+      <DependentUpon>login2_master.aspx</DependentUpon>
     </Compile>
     <Compile Include="menu.aspx.cs">
       <DependentUpon>menu.aspx</DependentUpon>
@@ -309,6 +319,13 @@
     <Compile Include="service.aspx.designer.cs">
       <DependentUpon>service.aspx</DependentUpon>
     </Compile>
+    <Compile Include="show_detailview.aspx.cs">
+      <DependentUpon>show_detailview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="show_detailview.aspx.designer.cs">
+      <DependentUpon>show_detailview.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site1.Master.cs">
       <DependentUpon>Site1.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -336,6 +353,13 @@
     </Compile>
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDetail.aspx.cs">
+      <DependentUpon>ViewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewDetail.aspx.designer.cs">
+      <DependentUpon>ViewDetail.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

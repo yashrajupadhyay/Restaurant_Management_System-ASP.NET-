@@ -11,7 +11,7 @@ namespace ProjectASP
 {
 
 
-    public partial class login
+    public partial class login2_master
     {
 
         /// <summary>
@@ -67,6 +67,15 @@ namespace ProjectASP
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtpswd;
+
+        /// <summary>
+        /// ddlRole control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRole;
 
         /// <summary>
         /// btnsignup control.

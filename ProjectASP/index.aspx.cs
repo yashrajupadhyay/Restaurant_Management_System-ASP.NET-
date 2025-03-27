@@ -22,7 +22,21 @@ namespace ProjectASP
         protected void Page_Load(object sender, EventArgs e)
         {
             getcon();
+             lblUser.ForeColor = System.Drawing.Color.White;
+            // Debugging: Print session values to the Output Window
+            System.Diagnostics.Debug.WriteLine("Session Check: UserEmail = " + (Session["UserEmail"] ?? "NULL"));
+
+            if (Session["UserEmail"] != null)
+            {
+                lblUser.Text = "Welcome, " + Session["UserEmail"].ToString();
+            }
+            else
+            {
+                lblUser.Text = "Welcome, Guest!";
+              //  ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Session is not active! Please log in.');", true);
+            }
         }
+
         void getcon()
         {
             cs = new Class1();

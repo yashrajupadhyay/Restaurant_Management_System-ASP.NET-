@@ -23,12 +23,23 @@ namespace ProjectASP
         protected void Page_Load(object sender, EventArgs e)
         {
             getcon();
+           
+                //if (Session["UserRole"] == null)
+                //{
+                //    Response.Redirect("login2_master.aspx");
+                //}
+            
+
         }
 
         void getcon()
         {
             cs = new Class1();
             cs.startcon();
+            //if (Session["UserEmail"] == null)
+            //{
+            //    Response.Redirect("login.aspx");
+            //}
         }
 
 

@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO; // Required for file handling
+using System.IO;
 
 namespace ProjectASP.Admin
 {
@@ -15,15 +15,14 @@ namespace ProjectASP.Admin
         SqlDataAdapter da;
         DataSet ds;
         Class1 cs;
-        string fnm; // Image path variable
+        string fnm;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            getcon(); // Initialize DB connection
-            fillgrid();
-
-            if (!IsPostBack) // Load categories only on first load
+            if (!IsPostBack)
             {
+                getcon();
+                fillgrid();
                 LoadCategories();
             }
         }
@@ -40,8 +39,8 @@ namespace ProjectASP.Admin
         {
             try
             {
-                getcon(); // Ensure connection is initialized
-                string query = "SELECT Id, Name FROM Categories"; // Fetch categories
+                getcon();
+                string query = "SELECT Id, Name FROM Categories";
                 cmd = new SqlCommand(query, con);
                 SqlDataReader dr = cmd.ExecuteReader();
 
@@ -60,7 +59,7 @@ namespace ProjectASP.Admin
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
+                // Log error instead of showing an alert
             }
             finally
             {
@@ -71,30 +70,6 @@ namespace ProjectASP.Admin
             }
         }
 
-        //public void imgupload()
-        //{
-        //    // Correct folder path
-        //    string uploadFolder = Server.MapPath("~/Admin/Images1/");
-
-        //    // Check if the directory exists; if not, create it
-        //    if (!Directory.Exists(uploadFolder))
-        //    {
-        //        Directory.CreateDirectory(uploadFolder);
-        //    }
-
-        //    if (fldimg.HasFile)
-        //    {
-        //        // Get the filename and append it to the correct path
-        //        string fileName = Path.GetFileName(fldimg.FileName);
-        //        string savePath = Path.Combine(uploadFolder, fileName);
-
-        //        // Save the file
-        //        fldimg.SaveAs(savePath);
-
-        //        // Store the relative path (for database storage)
-        //        fnm = "/Admin/Images1/" + fileName; // ✅ Corrected path
-        //    }
-        //}
         void imgupload()
         {
             getcon();
@@ -105,12 +80,10 @@ namespace ProjectASP.Admin
             }
         }
 
-
-
         void getcon()
         {
             cs = new Class1();
-            con = cs.startcon(); // Ensure startcon() returns SqlConnection
+            con = cs.startcon();
         }
 
         void clear()
@@ -119,65 +92,77 @@ namespace ProjectASP.Admin
             txtDescription.Text = "";
             txtPrice.Text = "";
             ddlCategory.SelectedIndex = 0;
-            imgPreview.ImageUrl = "~/Admin/Images1/default.png"; // Reset image preview
+            imgPreview.ImageUrl = "~/Admin/Images1/default.png";
+            ViewState["id"] = null;
+        }
 
-            Response.Write("<script>alert('Product added successfully');</script>");
+        bool IsDuplicate(string productName, int categoryId)
+        {
+            getcon();
+            string query = "SELECT COUNT(*) FROM Products WHERE Name = @Name AND CategoryID = @CategoryID";
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Name", productName);
+            cmd.Parameters.AddWithValue("@CategoryID", categoryId);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+            con.Close();
+            return count > 0;
         }
 
         protected void btnAddProduct_Click(object sender, EventArgs e)
         {
-            getcon(); // Ensure connection is established
+            getcon();
             try
             {
                 if (ddlCategory.SelectedValue == "0")
                 {
-                    Response.Write("<script>alert('Please select a category');</script>");
                     return;
                 }
 
                 if (string.IsNullOrWhiteSpace(txtProductName.Text) || string.IsNullOrWhiteSpace(txtPrice.Text))
                 {
-                    Response.Write("<script>alert('Please enter all required fields');</script>");
                     return;
                 }
 
                 // Upload Image
                 imgupload();
 
-                // Get Values
                 string productName = txtProductName.Text.Trim();
                 string description = txtDescription.Text.Trim();
                 decimal price = Convert.ToDecimal(txtPrice.Text);
                 int categoryId = Convert.ToInt32(ddlCategory.SelectedValue);
 
-                // If updating, use the existing image if a new one is not uploaded
-                if (btnAddProduct.Text == "Update")
+                if (btnAddProduct.Text == "Update" && ViewState["id"] != null)
                 {
-                    if (string.IsNullOrEmpty(fnm)) // No new image uploaded
+                    int productId = Convert.ToInt32(ViewState["id"]);
+
+                    if (string.IsNullOrEmpty(fnm))
                     {
-                        DataSet ds = cs.select(Convert.ToInt32(ViewState["id"]));
+                        DataSet ds = cs.select(productId);
                         if (ds.Tables[0].Rows.Count > 0)
                         {
-                            fnm = ds.Tables[0].Rows[0]["Image"].ToString(); // Use existing image
+                            fnm = ds.Tables[0].Rows[0]["Image"].ToString();
                         }
                     }
 
-                    cs.updateProduct(Convert.ToInt32(ViewState["id"]), productName, description, price, categoryId, fnm);
-                    btnAddProduct.Text = "Add Product"; // Reset button text
+                    cs.updateProduct(productId, productName, description, price, categoryId, fnm);
+                    btnAddProduct.Text = "Add Product";
+                    ViewState["id"] = null;
                 }
                 else
                 {
-                    // Insert Product
-                    cs.insertProduct(productName, description, price, fnm, categoryId);
+                    if (!IsDuplicate(productName, categoryId))
+                    {
+                        cs.insertProduct(productName, description, price, fnm, categoryId);
+                    }
                 }
 
-                // Refresh Grid & Clear Form
                 fillgrid();
                 clear();
             }
             catch (Exception ex)
             {
-                Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
+                // Log error
             }
         }
 
@@ -189,25 +174,24 @@ namespace ProjectASP.Admin
 
             if (ViewState["id"] != null)
             {
-                ds = cs.select(Convert.ToInt32(ViewState["id"])); // Fetch product details by ID
+                ds = cs.select(Convert.ToInt32(ViewState["id"]));
 
-                if (ds.Tables[0].Rows.Count > 0) // Ensure data exists
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     txtProductName.Text = ds.Tables[0].Rows[0]["Name"].ToString();
                     txtDescription.Text = ds.Tables[0].Rows[0]["Description"].ToString();
                     txtPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
                     ddlCategory.SelectedValue = ds.Tables[0].Rows[0]["CategoryID"].ToString();
 
-                    // Store image path globally for later use
                     fnm = ds.Tables[0].Rows[0]["Image"].ToString().Trim();
 
                     if (!string.IsNullOrEmpty(fnm))
                     {
-                        imgPreview.ImageUrl = fnm; // ✅ Display image in <asp:Image>
+                        imgPreview.ImageUrl = fnm;
                     }
                     else
                     {
-                        imgPreview.ImageUrl = "~/Admin/Images1/default.png"; // Default if no image
+                        imgPreview.ImageUrl = "~/Admin/Images1/default.png";
                     }
                 }
             }
@@ -217,20 +201,24 @@ namespace ProjectASP.Admin
         {
             if (e.CommandName == "cmd_edt")
             {
-                int id = Convert.ToInt16(e.CommandArgument);
-                ViewState["id"] = id;
-                btnAddProduct.Text = "Update";
-                filltext();
+                int id;
+                if (int.TryParse(e.CommandArgument.ToString(), out id))
+                {
+                    ViewState["id"] = id;
+                    btnAddProduct.Text = "Update";
+                    filltext();
+                }
             }
-            else
+           else
             {
                 cs = new Class1();
                 int id = Convert.ToInt32(e.CommandArgument);
                 ViewState["id"] = id;
 
-                cs.deleteProduct(Convert.ToInt32(ViewState["id"]));
+                cs.delete_product(Convert.ToInt32(ViewState["id"]));
                 fillgrid();
             }
         }
+
     }
 }

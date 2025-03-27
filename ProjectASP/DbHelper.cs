@@ -28,13 +28,27 @@ namespace ProjectASP
             using (SqlConnection con = new SqlConnection(connString))
             {
                 con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Products WHERE CategoryId = @CategoryId", con);
-                cmd.Parameters.AddWithValue("@CategoryId", categoryId);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                return dt;
+                string query = "SELECT DISTINCT Id, Name, Price, Image FROM Products WHERE CategoryId = @CategoryId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@CategoryId", categoryId);
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        // Debugging - Check if database returns data
+                        Console.WriteLine("Fetched " + dt.Rows.Count + " products from the database.");
+
+                        return dt;
+                    }
+                }
             }
         }
+
+
+
     }
 }
