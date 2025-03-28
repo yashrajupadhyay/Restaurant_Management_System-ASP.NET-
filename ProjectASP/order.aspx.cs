@@ -194,6 +194,16 @@ namespace ProjectASP
 
         }
 
+        protected void dlProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void lnkAddToCart_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Add_To_Cart.aspx");
+        }
+
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
             btnPrev.Enabled = true;

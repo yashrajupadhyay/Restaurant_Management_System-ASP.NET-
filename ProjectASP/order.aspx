@@ -132,7 +132,7 @@
 <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
 </asp:DropDownList>
         </center>
-<asp:DataList ID="dlProducts" runat="server" RepeatColumns="3" CellPadding="10" OnItemCommand="dlProducts_ItemCommand">
+<asp:DataList ID="dlProducts" runat="server" RepeatColumns="3" CellPadding="10" OnItemCommand="dlProducts_ItemCommand" OnSelectedIndexChanged="dlProducts_SelectedIndexChanged">
     <ItemTemplate>
         <div style="border: 1px solid #ddd; padding: 10px; margin: 5px; text-align: center;">
             <img src='<%# Eval("Image") %>' alt='<%# Eval("Name") %>' style="width:150px; height:150px;"/>
@@ -145,7 +145,7 @@
 
             <!-- Add to Cart LinkButton -->
             <asp:LinkButton ID="lnkAddToCart" runat="server" Text="Add to Cart" 
-                CssClass="btn btn-primary" CommandName="AddToCart" CommandArgument='<%# Eval("Id") %>' OnCommand="dlProducts_ItemCommand" />
+                CssClass="btn btn-primary" CommandName="AddToCart" CommandArgument='<%# Eval("Id") %>' OnCommand="dlProducts_ItemCommand" OnClick="lnkAddToCart_Click" />
         </div>
     </ItemTemplate>
 </asp:DataList>

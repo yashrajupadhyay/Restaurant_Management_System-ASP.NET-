@@ -62,7 +62,7 @@
                         <a href="index.aspx" class="nav-item nav-link">Home</a>
                         <a href="about.aspx" class="nav-item nav-link">About</a>
                         <a href="service.aspx" class="nav-item nav-link">Service</a>
-                        <a href="menu.aspx" class="nav-item nav-link active">Menu</a>
+                        <a href="order.aspx" class="nav-item nav-link active">Menu</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
@@ -95,8 +95,26 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+<asp:DataList ID="DataList1" runat="server" RepeatDirection="Horizontal" Width="1523px">
+    <ItemTemplate>
+        <div style="border:1px solid #ccc; padding:10px; margin:10px; text-align:center;">
+            <asp:Image ID="Image1" runat="server" Height="150px" Width="150px" ImageUrl='<%# Eval("Image") %>' />
+            <br />
+            <strong>Name:</strong> 
+            <asp:Label ID="Label1" runat="server" Text='<%# Eval("Name") %>'></asp:Label>
+            <br />
+            <strong>Price:</strong> 
+            <asp:Label ID="Label2" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
+        </div>
+    </ItemTemplate>
+</asp:DataList>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     
-        <!-- Menu Start -->
+       <%-- <!-- Menu Start -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -439,8 +457,10 @@
             </div>
         </div>
         <!-- Menu End -->
-        
-
+        --%>
+    <asp:LinkButton ID="btnPrev" runat="server" OnClick="btnPrev_Click">Previous</asp:LinkButton>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click">Next</asp:LinkButton>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
     
@@ -449,7 +469,9 @@
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">
+                            <br />
+                        </h4>
                         <a class="btn btn-link" href="">About Us</a>
                         <a class="btn btn-link" href="">Contact Us</a>
                         <a class="btn btn-link" href="">Reservation</a>
@@ -479,9 +501,7 @@
                         <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
                         <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
                         <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <%--<input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">--%>
-                            <asp:TextBox ID="TextBox1" class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" runat="server"></asp:TextBox>
-                           <%-- <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--%>
+                            <%--<input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">--%>                          <%--  <asp:TextBox ID="TextBox1" class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>--%>                           <%-- <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--%>
                             <asp:Button ID="Button1" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" runat="server" Text="Button" />
                         </div>
                     </div>

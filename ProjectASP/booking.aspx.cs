@@ -24,11 +24,7 @@ namespace ProjectASP
         {
             getcon();
            
-                //if (Session["UserRole"] == null)
-                //{
-                //    Response.Redirect("login2_master.aspx");
-                //}
-            
+                
 
         }
 
@@ -36,23 +32,41 @@ namespace ProjectASP
         {
             cs = new Class1();
             cs.startcon();
-            //if (Session["UserEmail"] == null)
-            //{
-            //    Response.Redirect("login.aspx");
-            //}
+           
         }
 
 
         protected void btnbooking_Click(object sender, EventArgs e)
         {
-            if(btnbooking.Text== "Book Now")
-            {
-                getcon();
-                cs.insert_booking(txtname.Text, txtemail.Text, txtdate.Text, txtpeople.Text, txtrequest.Text);
+            getcon();
 
+            // Check if the user is logged in
+            if (Session["UserID"] == null)
+            {
+                // Store booking details in session before redirecting
+                Session["Name"] = txtname.Text;
+                Session["Email"] = txtemail.Text;
+                Session["Date"] = txtdate.Text;
+                Session["People"] = txtpeople.Text;
+                Session["Request"] = txtrequest.Text;
+
+                // Store return URL
+                Session["ReturnUrl"] = "booking.aspx";
+
+                // Redirect user to login page
+                Response.Redirect("login2_master.aspx");
+                return;
             }
 
+            // User is logged in, proceed with booking
+            cs.insert_booking(txtname.Text, txtemail.Text, txtdate.Text, txtpeople.Text, txtrequest.Text);
+
+            // Show success message
+            ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Booking Successful!');", true);
         }
+
+
+
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
