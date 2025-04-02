@@ -26,34 +26,35 @@ namespace ProjectASP
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!IsPostBack)
             {
                 LoadCategories();
-                //SetDefaultCategory();
+                SetDefaultCategory();
                 ViewState["pid"] = 0; // Initialize page index for pagination
             }
             //display();
         }
-        //void SetDefaultCategory()
-        //{
-        //    try
-        //    {
-        //        getcon();
-        //        cmd = new SqlCommand("SELECT Id FROM Categories WHERE Name = 'Breakfast'", con);
-        //        object result = cmd.ExecuteScalar();
+        void SetDefaultCategory()
+        {
+            try
+            {
+                getcon();
+                cmd = new SqlCommand("SELECT Id FROM Categories WHERE Name = 'Breakfast'", con);
+                object result = cmd.ExecuteScalar();
 
-        //        if (result != null)
-        //        {
-        //            ddlCategory.SelectedValue = result.ToString();
-        //            ViewState["pid"] = 0; // Reset pagination
-        //            display(); // Load products for Breakfast
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Response.Write("<script>alert('Error loading default category: " + ex.Message + "');</script>");
-        //    }
-        //}
+                if (result != null)
+                {
+                    ddlCategory.SelectedValue = result.ToString();
+                    ViewState["pid"] = 0; // Reset pagination
+                    display(); // Load products for Breakfast
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error loading default category: " + ex.Message + "');</script>");
+            }
+        }
         // Load Categories into DropDownList
         void LoadCategories()
         {

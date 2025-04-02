@@ -43,11 +43,35 @@ namespace ProjectASP
             cmd.ExecuteNonQuery();
         }
 
-        public void signup_insert(string name , string email , string pass)
+        //public void signup_insert(string name , string email , string pass)
+        //{
+        //    cmd = new SqlCommand("insert into SignUp_tbl (Name , Email , Password)values('"+name+"','"+email+"','"+pass+"')", con);
+        //    cmd.ExecuteNonQuery();
+        //}
+        public int signup_insert(string name, string email, string password, string role)
         {
-            cmd = new SqlCommand("insert into SignUp_tbl (Name , Email , Password)values('"+name+"','"+email+"','"+pass+"')", con);
-            cmd.ExecuteNonQuery();
+            int result = 0;
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO SignUp_tbl (Name, Email, Password, Role) VALUES (@Name, @Email, @Password, @Role)", startcon());
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Role", role);
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Log error or handle accordingly
+                Console.WriteLine(ex.Message);
+            }
+
+            return result;
         }
+
+
 
         //public void insertProduct(string nm, string des, decimal price,string img)
         //{
@@ -90,7 +114,12 @@ namespace ProjectASP
             cmd = new SqlCommand("DELETE FROM Products WHERE Id='" + id + "';", con);
             cmd.ExecuteNonQuery();
         }
-
+        public void delete_user(int id )
+        {
+            startcon();
+            cmd = new SqlCommand("DELETE FROM SignUp_tbl WHERE Id='" + id + "';", con);
+            cmd.ExecuteNonQuery();
+        }
 
         public DataSet filldata()
         {

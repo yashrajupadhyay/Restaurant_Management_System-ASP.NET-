@@ -72,6 +72,8 @@
     <Content Include="Add_To_Cart.aspx" />
     <Content Include="Admin\Add_Category.aspx" />
     <Content Include="Admin\Add_Product.aspx" />
+    <Content Include="Admin\admin.aspx" />
+    <Content Include="Admin\Users.aspx" />
     <Content Include="admin_dashboard.aspx" />
     <Content Include="App_Data\emp_db.mdf" />
     <Content Include="App_Data\emp_db_log.ldf">
@@ -253,6 +255,20 @@
     </Compile>
     <Compile Include="Admin\Add_Product.aspx.designer.cs">
       <DependentUpon>Add_Product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\admin.aspx.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\admin.aspx.designer.cs">
+      <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Users.aspx.designer.cs">
+      <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
     <Compile Include="admin_dashboard.aspx.cs">
       <DependentUpon>admin_dashboard.aspx</DependentUpon>
