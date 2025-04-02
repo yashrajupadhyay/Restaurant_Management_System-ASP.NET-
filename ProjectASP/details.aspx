@@ -72,7 +72,8 @@
                         </div>
                         <a href="contact.aspx" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <%--<a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>--%>
+                    <asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE " OnClick="btnBookTable_Click1" />
                 </div>
             </nav>
 

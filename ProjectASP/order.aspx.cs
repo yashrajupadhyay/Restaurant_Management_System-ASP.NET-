@@ -205,6 +205,17 @@ namespace ProjectASP
             Response.Redirect("Add_To_Cart.aspx");
         }
 
+        protected void btnBookTable_Click1(object sender, EventArgs e)
+        {
+
+            if (Session["UserID"] == null) // If user is not logged in
+            {
+                Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
+                Response.Redirect("login2_master.aspx"); // Redirect to login
+                return;
+            }
+        }
+
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
             btnPrev.Enabled = true;

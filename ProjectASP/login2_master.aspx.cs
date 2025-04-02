@@ -53,7 +53,7 @@ namespace ProjectASP
                 Session["UserEmail"] = txteml.Text;
                 reader.Close();
 
-                Response.Redirect(Session["UserRole"].ToString().Equals("Admin", StringComparison.OrdinalIgnoreCase) ? "Admin/admin.aspx" : "index.aspx");
+                Response.Redirect(Session["UserRole"].ToString().Equals("Admin", StringComparison.OrdinalIgnoreCase) ? "Admin/admin.aspx" : "booking.aspx");
             }
             else
             {

@@ -83,5 +83,32 @@ namespace ProjectASP
             // Show success message
             ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Booking Successful!');", true);
         }
+
+        //protected void btnbooking_Click(object sender, EventArgs e)
+        //{
+            
+        //}
+
+        protected void btnBookTable_Click(object sender, EventArgs e)
+        {
+
+            if (Session["UserID"] == null) // If user is not logged in
+            {
+                Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
+                Response.Redirect("login2_master.aspx"); // Redirect to login
+                return;
+            }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+
+            if (Session["UserID"] == null) // If user is not logged in
+            {
+                Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
+                Response.Redirect("login2_master.aspx"); // Redirect to login
+                return;
+            }
+        }
     }
 }

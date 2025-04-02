@@ -1,5 +1,5 @@
-﻿<!DOCTYPE html>
-<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="admin.aspx.cs" Inherits="ProjectASP.Admin.admin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="admin.aspx.cs" Inherits="ProjectASP.Admin.admin" %>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Admin Panel</title>
@@ -41,6 +41,7 @@
             cursor: pointer;
             border: none;
             width: 100%;
+            text-align: center;
         }
         .admin-container a:hover, .logout-button:hover {
             background: linear-gradient(135deg, #0056b3, #0041a3);
@@ -59,7 +60,11 @@
             <a href="Users.aspx"><i class="fas fa-users"></i> Show Users</a>
             <a href="Add_Product.aspx"><i class="fas fa-box"></i> Add Product</a>
             <a href="Add_Category.aspx"><i class="fas fa-tags"></i> Add Category</a>
-            <asp:Button ID="btnLogout" runat="server" Text="🚪 Logout" CssClass="logout-button" OnClick="btnLogout_Click"  />
+            <a href="BookingDetails.aspx"><i class="fas fa-calendar-check"></i> Show Booking Details</a>
+            <a href="ContactDetails.aspx"><i class="fas fa-address-book"></i> Show Contact Details</a>
+            
+            <!-- FIXED Logout Button -->
+            <asp:Button ID="btnLogout" runat="server" Text="🚪 Logout" CssClass="logout-button" OnClick="btnLogout_Click" />
         </div>
     </form>
 </body>

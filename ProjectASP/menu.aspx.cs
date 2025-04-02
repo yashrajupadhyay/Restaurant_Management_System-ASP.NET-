@@ -90,5 +90,16 @@ namespace ProjectASP
                 Response.Write("<script>alert('Error fetching products: " + ex.Message + "');</script>");
             }
         }
+
+        protected void btnBookTable_Click1(object sender, EventArgs e)
+        {
+
+            if (Session["UserID"] == null) // If user is not logged in
+            {
+                Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
+                Response.Redirect("login2_master.aspx"); // Redirect to login
+                return;
+            }
+        }
     }
 }

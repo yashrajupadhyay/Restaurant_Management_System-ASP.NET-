@@ -73,6 +73,8 @@
     <Content Include="Admin\Add_Category.aspx" />
     <Content Include="Admin\Add_Product.aspx" />
     <Content Include="Admin\admin.aspx" />
+    <Content Include="Admin\BookingDetails.aspx" />
+    <Content Include="Admin\ContactDetails.aspx" />
     <Content Include="Admin\Users.aspx" />
     <Content Include="admin_dashboard.aspx" />
     <Content Include="App_Data\emp_db.mdf" />
@@ -262,6 +264,20 @@
     </Compile>
     <Compile Include="Admin\admin.aspx.designer.cs">
       <DependentUpon>admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\BookingDetails.aspx.cs">
+      <DependentUpon>BookingDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\BookingDetails.aspx.designer.cs">
+      <DependentUpon>BookingDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ContactDetails.aspx.cs">
+      <DependentUpon>ContactDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ContactDetails.aspx.designer.cs">
+      <DependentUpon>ContactDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>
