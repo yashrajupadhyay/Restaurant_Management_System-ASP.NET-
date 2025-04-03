@@ -104,7 +104,7 @@
                         </div>
                         <a href="contact.aspx" class="nav-item nav-link">Contact</a>
                     </div>
-                   <%-- <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>--%>
+                    <%-- <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>--%>
                     <asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE " OnClick="btnBookTable_Click1" />
                 </div>
             </nav>
@@ -127,7 +127,33 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+       <h2>Shopping Cart</h2>
+
+        <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
+            OnRowDeleting="gvCart_RowDeleting" OnRowEditing="gvCart_RowEditing"
+            OnRowUpdating="gvCart_RowUpdating" OnRowCancelingEdit="gvCart_RowCancelingEdit" 
+            CssClass="table">
+            <Columns>
+                <asp:BoundField DataField="ProductName" HeaderText="Product Name" ReadOnly="True" />
+                <asp:TemplateField HeaderText="Quantity">
+                    <ItemTemplate>
+                        <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="Price" HeaderText="Price" ReadOnly="True" />
+                <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" ReadOnly="True" />
+                <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
+            </Columns>
+        </asp:GridView>
+
+        <h3><asp:Label ID="lblGrandTotal" runat="server" Text="Grand Total: $0"></asp:Label></h3>
+
+        <asp:Button ID="btnCheckout" runat="server" CssClass="btn" Text="Checkout" OnClick="btnCheckout_Click" />
+    </div>
+
     </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
     <!-- Footer Start -->
@@ -167,7 +193,7 @@
                         <div class="position-relative mx-auto" style="max-width: 400px;">
                             <%--<input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">--%>
                             <asp:TextBox ID="TextBox1" class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" runat="server"></asp:TextBox>
-                           <%-- <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--%>
+                            <%-- <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--%>
                             <asp:Button ID="Button1" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" runat="server" Text="Button" />
                         </div>
                     </div>

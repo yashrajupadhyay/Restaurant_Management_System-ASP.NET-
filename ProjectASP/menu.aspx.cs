@@ -100,6 +100,10 @@ namespace ProjectASP
                 Response.Redirect("login2_master.aspx"); // Redirect to login
                 return;
             }
+            else
+            {
+                Response.Redirect("booking.aspx"); // If logged in, go to booking page
+            }
         }
     }
 }

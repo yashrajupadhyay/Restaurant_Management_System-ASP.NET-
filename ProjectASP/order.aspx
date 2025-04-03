@@ -103,8 +103,8 @@
                         </div>
                         <a href="contact.aspx" class="nav-item nav-link">Contact</a>
                     </div>
-<%--                    <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>--%>
-                    <asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE " OnClick="btnBookTable_Click1" />
+                    <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <%--<asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE " OnClick="btnBookTable_Click1" />--%>
                 </div>
             </nav>
 
@@ -133,7 +133,7 @@
 <asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged">
 </asp:DropDownList>
         </center>
-<asp:DataList ID="dlProducts" runat="server" RepeatColumns="3" CellPadding="10" OnItemCommand="dlProducts_ItemCommand" OnSelectedIndexChanged="dlProducts_SelectedIndexChanged">
+<asp:DataList ID="dlProducts" runat="server" RepeatColumns="3" CellPadding="10" OnItemCommand="dlProducts_ItemCommand" >
     <ItemTemplate>
         <div style="border: 1px solid #ddd; padding: 10px; margin: 5px; text-align: center;">
             <img src='<%# Eval("Image") %>' alt='<%# Eval("Name") %>' style="width:150px; height:150px;"/>
@@ -142,11 +142,11 @@
             
             <!-- View Details LinkButton -->
             <asp:LinkButton ID="lnkViewDetails" runat="server" Text="View Details" 
-                CssClass="btn btn-link" CommandName="cmd_detailV" CommandArgument='<%# Eval("Id") %>' OnCommand="dlProducts_ItemCommand" />
+                CssClass="btn btn-link" CommandName="cmd_detailV" CommandArgument='<%# Eval("Id") %>' />
 
             <!-- Add to Cart LinkButton -->
             <asp:LinkButton ID="lnkAddToCart" runat="server" Text="Add to Cart" 
-                CssClass="btn btn-primary" CommandName="AddToCart" CommandArgument='<%# Eval("Id") %>' OnCommand="dlProducts_ItemCommand" OnClick="lnkAddToCart_Click" />
+                CssClass="btn btn-primary" CommandName="AddToCart" CommandArgument='<%# Eval("Id") %>'   />
         </div>
     </ItemTemplate>
 </asp:DataList>
@@ -154,9 +154,9 @@
 
 
       <br />
-    <asp:LinkButton ID="btnPrev" runat="server" OnClick="LinkButton1_Click">Previous</asp:LinkButton>
+    <asp:LinkButton ID="btnPrev" runat="server" OnClick="btnPrev_Click1" >Previous</asp:LinkButton>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:LinkButton ID="btnNext" runat="server" OnClick="LinkButton2_Click">Next</asp:LinkButton>
+    <asp:LinkButton ID="btnNext" runat="server" OnClick="btnNext_Click1" >Next</asp:LinkButton>
     
                     </asp:Content>
 

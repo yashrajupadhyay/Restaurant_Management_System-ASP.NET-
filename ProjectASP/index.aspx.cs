@@ -98,6 +98,10 @@ namespace ProjectASP
                 Response.Redirect("login2_master.aspx"); // Redirect to login
                 return;
             }
+            else
+            {
+                Response.Redirect("booking.aspx"); // If logged in, go to booking page
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -108,6 +112,10 @@ namespace ProjectASP
                 Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
                 Response.Redirect("login2_master.aspx"); // Redirect to login
                 return;
+            }
+            else
+            {
+                Response.Redirect("booking.aspx"); // If logged in, go to booking page
             }
         }
     }

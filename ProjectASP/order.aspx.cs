@@ -17,7 +17,6 @@ namespace ProjectASP
         int row;
         int p, pid;
 
-        // Establish database connection
         void getcon()
         {
             cs = new Class1();
@@ -26,15 +25,14 @@ namespace ProjectASP
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
             if (!IsPostBack)
             {
                 LoadCategories();
                 SetDefaultCategory();
-                ViewState["pid"] = 0; // Initialize page index for pagination
+                ViewState["pid"] = 0; // Initialize pagination index
             }
-            //display();
         }
+
         void SetDefaultCategory()
         {
             try
@@ -47,7 +45,7 @@ namespace ProjectASP
                 {
                     ddlCategory.SelectedValue = result.ToString();
                     ViewState["pid"] = 0; // Reset pagination
-                    display(); // Load products for Breakfast
+                    display();
                 }
             }
             catch (Exception ex)
@@ -55,7 +53,7 @@ namespace ProjectASP
                 Response.Write("<script>alert('Error loading default category: " + ex.Message + "');</script>");
             }
         }
-        // Load Categories into DropDownList
+
         void LoadCategories()
         {
             try
@@ -78,7 +76,6 @@ namespace ProjectASP
             }
         }
 
-        // Display paginated products based on selected category
         void display()
         {
             try
@@ -107,14 +104,14 @@ namespace ProjectASP
                     return;
                 }
 
-                // Pagination setup
-                pg = new PagedDataSource();
-                pg.AllowPaging = true;
-                pg.PageSize = 3; // Number of products per page
-                pg.DataSource = ds.Tables[0].DefaultView;
-                pg.CurrentPageIndex = Convert.ToInt32(ViewState["pid"]);
+                pg = new PagedDataSource
+                {
+                    AllowPaging = true,
+                    PageSize = 3,
+                    DataSource = ds.Tables[0].DefaultView,
+                    CurrentPageIndex = Convert.ToInt32(ViewState["pid"])
+                };
 
-                // Enable/Disable Navigation Buttons
                 btnPrev.Enabled = !pg.IsFirstPage;
                 btnNext.Enabled = !pg.IsLastPage;
 
@@ -127,41 +124,114 @@ namespace ProjectASP
             }
         }
 
-        // Dropdown selection event handler
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ViewState["pid"] = 0; // Reset pagination on category change
+            ViewState["pid"] = 0;
             display();
         }
 
-        // Next Page Button Click
-        protected void btnNext_Click(object sender, EventArgs e)
+      
+
+     
+
+        protected void btnBookTable_Click1(object sender, EventArgs e)
         {
-            ViewState["pid"] = Convert.ToInt32(ViewState["pid"]) + 1;
+            if (Session["UserID"] == null)
+            {
+                Session["ReturnUrl"] = "booking.aspx";
+                Response.Redirect("login2_master.aspx");
+            }
+            else
+            {
+                Response.Redirect("booking.aspx");
+            }
+        }
+
+      
+
+        protected void dlProducts_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == "cmd_detailV")
+            {
+                int pid = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("ViewDetail.aspx?pid=" + pid);
+            }
+            else if (e.CommandName == "AddToCart")
+            {
+                if (Session["UserID"] == null)
+                {
+                    Session["ReturnUrl"] = "order.aspx";
+                    Response.Redirect("login2_master.aspx");
+                    return;
+                }
+
+                int productId = Convert.ToInt32(e.CommandArgument);
+                int userId = Convert.ToInt32(Session["UserID"]);
+
+                try
+                {
+                    getcon();
+
+                    // Check if product already exists in the cart
+                    cmd = new SqlCommand("SELECT Quantity FROM Cart WHERE UserId = @UserId AND ProductId = @ProductId", con);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.Parameters.AddWithValue("@ProductId", productId);
+                    object existingQuantity = cmd.ExecuteScalar();
+
+                    if (existingQuantity != null)
+                    {
+                        int quantity = Convert.ToInt32(existingQuantity) + 1;
+                        cmd = new SqlCommand("UPDATE Cart SET Quantity = @Quantity WHERE UserId = @UserId AND ProductId = @ProductId", con);
+                        cmd.Parameters.AddWithValue("@Quantity", quantity);
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+                        cmd.Parameters.AddWithValue("@ProductId", productId);
+                    }
+                    else
+                    {
+                        cmd = new SqlCommand("SELECT Price FROM Products WHERE Id = @ProductId", con);
+                        cmd.Parameters.AddWithValue("@ProductId", productId);
+                        object priceObj = cmd.ExecuteScalar();
+
+                        if (priceObj != null)
+                        {
+                            decimal price = Convert.ToDecimal(priceObj);
+
+                            cmd = new SqlCommand("INSERT INTO Cart (UserId, ProductId, Quantity, Price) VALUES (@UserId, @ProductId, @Quantity, @Price)", con);
+                            cmd.Parameters.AddWithValue("@UserId", userId);
+                            cmd.Parameters.AddWithValue("@ProductId", productId);
+                            cmd.Parameters.AddWithValue("@Quantity", 1);
+                            cmd.Parameters.AddWithValue("@Price", price);
+                        }
+                        else
+                        {
+                            Response.Write("<script>alert('Error retrieving product price');</script>");
+                        }
+                    }
+
+                    cmd.ExecuteNonQuery();
+                    Response.Write("<script>alert('Item added to cart successfully!');</script>");
+                }
+                catch (Exception ex)
+                {
+                    Response.Write("<script>alert('Error adding to cart: " + ex.Message + "');</script>");
+                }
+            }
+        }
+        protected void btnNext_Click1(object sender, EventArgs e)
+        {
+            btnPrev.Enabled = true;
+            p += Convert.ToInt32(ViewState["pid"]) + 1;
+            ViewState["pid"] = Convert.ToInt32(p);
+            if (p == 0)
+            {
+                btnPrev.Enabled = false;
+            }
             display();
         }
 
-        // Previous Page Button Click
-        protected void btnPrev_Click(object sender, EventArgs e)
+        protected void btnPrev_Click1(object sender, EventArgs e)
         {
-            ViewState["pid"] = Convert.ToInt32(ViewState["pid"]) - 1;
-            display();
-        }
 
-        //protected void LinkButton1_Click(object sender, EventArgs e)
-        //{
-        //    btnPrev.Enabled = true;
-        //    p += Convert.ToInt32(ViewState["pid"]) - 1;
-        //    ViewState["pid"] = Convert.ToInt32(p);
-        //    int temp = row / pg.PageSize;
-        //    if (p == temp)
-        //    {
-        //        btnNext.Enabled = false;
-        //    }
-        //    display();
-        //}
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
             btnPrev.Enabled = true;
             p = Convert.ToInt32(ViewState["pid"]) - 1;
             ViewState["pid"] = p;
@@ -179,53 +249,5 @@ namespace ProjectASP
             }
         }
 
-
-        protected void dlProducts_ItemCommand(object sender, CommandEventArgs e)
-        {
-            if (e.CommandName == "cmd_detailV")
-            {
-                int pid = Convert.ToInt32(e.CommandArgument);
-                Response.Redirect("ViewDetail.aspx?pid=" + pid);
-
-            }
-        }
-
-        protected void DataList1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void dlProducts_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void lnkAddToCart_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Add_To_Cart.aspx");
-        }
-
-        protected void btnBookTable_Click1(object sender, EventArgs e)
-        {
-
-            if (Session["UserID"] == null) // If user is not logged in
-            {
-                Session["ReturnUrl"] = "booking.aspx"; // Store return URL before redirecting
-                Response.Redirect("login2_master.aspx"); // Redirect to login
-                return;
-            }
-        }
-
-        protected void LinkButton2_Click(object sender, EventArgs e)
-        {
-            btnPrev.Enabled = true;
-            p += Convert.ToInt32(ViewState["pid"]) + 1;
-            ViewState["pid"] = Convert.ToInt32(p);
-            if (p == 0)
-            {
-                btnPrev.Enabled = false;
-            }
-            display();
-        }
     }
 }
