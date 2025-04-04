@@ -72,8 +72,8 @@
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
+                <br />
+&nbsp;</div>
         </div>
         <!-- Spinner End -->
 
@@ -127,32 +127,39 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-       <h2>Shopping Cart</h2>
-
+       
+   <form id="form1" runat="server" class="container mt-5">
+        <h2>Your Shopping Cart</h2>
         <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" DataKeyNames="Id"
             OnRowDeleting="gvCart_RowDeleting" OnRowEditing="gvCart_RowEditing"
-            OnRowUpdating="gvCart_RowUpdating" OnRowCancelingEdit="gvCart_RowCancelingEdit" 
-            CssClass="table">
+            OnRowUpdating="gvCart_RowUpdating" OnRowCancelingEdit="gvCart_RowCancelingEdit"
+            CssClass="table table-bordered mt-3">
+
             <Columns>
                 <asp:BoundField DataField="ProductName" HeaderText="Product Name" ReadOnly="True" />
+                
                 <asp:TemplateField HeaderText="Quantity">
                     <ItemTemplate>
                         <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
                     </ItemTemplate>
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtQuantity" runat="server" Text='<%# Eval("Quantity") %>' CssClass="form-control"></asp:TextBox>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:BoundField DataField="Price" HeaderText="Price" ReadOnly="True" />
-                <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" ReadOnly="True" />
+
+                <asp:BoundField DataField="Price" HeaderText="Price" ReadOnly="True" DataFormatString="{0:C}" />
+                <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" ReadOnly="True" DataFormatString="{0:C}" />
+
                 <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
             </Columns>
         </asp:GridView>
 
-        <h3><asp:Label ID="lblGrandTotal" runat="server" Text="Grand Total: $0"></asp:Label></h3>
+        <asp:Label ID="lblGrandTotal" runat="server" CssClass="fw-bold fs-5"></asp:Label>
 
-        <asp:Button ID="btnCheckout" runat="server" CssClass="btn" Text="Checkout" OnClick="btnCheckout_Click" />
-    </div>
+        <div class="mt-3">
+            <asp:Button ID="btnCheckout" runat="server" Text="Proceed to Checkout" CssClass="btn btn-success" OnClick="btnCheckout_Click" />
+        </div>
+    </form>
 
     </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">

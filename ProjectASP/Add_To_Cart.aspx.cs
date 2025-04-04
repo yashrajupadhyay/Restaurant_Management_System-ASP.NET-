@@ -8,6 +8,10 @@ namespace ProjectASP
 {
     public partial class addtocart : System.Web.UI.Page
     {
+        protected global::System.Web.UI.WebControls.GridView gvCart;
+        protected global::System.Web.UI.WebControls.Label lblGrandTotal;
+        protected global::System.Web.UI.WebControls.Button btnCheckout;
+
         SqlConnection con;
         SqlCommand cmd;
         SqlDataAdapter da;

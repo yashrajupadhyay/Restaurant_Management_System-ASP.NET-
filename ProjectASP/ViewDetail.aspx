@@ -35,35 +35,43 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
+  <style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa; /* Light Gray Background */
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .shadow-lg {
+        transition: 0.3s ease-in-out;
+    }
+
+    .shadow-lg:hover {
+        transform: scale(1.02); /* Slight hover effect */
+    }
+
+    .text-muted {
+        font-size: 14px;
+    }
+
+    .btn-success {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+        .row {
+            flex-direction: column;
+            text-align: center;
         }
-        .menu-item, .cart-item {
-            display: flex;
-            align-items: center;
-            margin: 10px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .menu-item img, .cart-item img {
-            width: 80px;
-            height: 80px;
-            margin-right: 10px;
-            border-radius: 5px;
-        }
-        .cart-container {
-            border: 1px solid #ddd;
-            padding: 10px;
-            max-width: 300px;
-        }
-        .remove-btn {
-            color: red;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-    </style>
+    }
+</style>
+
 </head>
 
 <body>
@@ -126,7 +134,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <center>
-    <asp:DataList ID="DataList1" runat="server" RepeatColumns="3" CellSpacing="10">
+    <%--<asp:DataList ID="DataList1" runat="server" RepeatColumns="3" CellSpacing="10">
     <ItemTemplate>
         <div class="card text-center shadow-sm p-3 mb-4 bg-white rounded" style="width: 18rem;">
             <asp:Image ID="Image1" runat="server" CssClass="card-img-top img-fluid" ImageUrl='<%# Eval("Image") %>' Style="height: 180px; object-fit: cover;" />
@@ -138,7 +146,39 @@
             </div>
         </div>
     </ItemTemplate>
+</asp:DataList>--%>
+        <asp:DataList ID="DataList1" runat="server" RepeatColumns="1" CellSpacing="20" CssClass="container">
+    <ItemTemplate>
+        <div class="row align-items-center shadow-lg bg-white rounded p-3 mb-4">
+            <!-- Product Image (Left Side) -->
+            <div class="col-md-3 text-center">
+                <asp:Image ID="Image1" runat="server" CssClass="img-fluid rounded"
+                    ImageUrl='<%# Eval("Image") %>' Style="width: 100%; height: 180px; object-fit: cover;" />
+            </div>
+
+            <!-- Product Details (Right Side) -->
+            <div class="col-md-9">
+                <h5 class="text-primary fw-bold">Description</h5>
+                <p class="text-muted">
+                    <asp:Label ID="Label1" runat="server" Text='<%# Eval("Description") %>'></asp:Label>
+                </p>
+
+                <h5 class="text-success fw-bold mt-2">Price</h5>
+                <p class="text-dark fw-bold fs-4">₹
+                    <asp:Label ID="Label2" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
+                </p>
+
+               <%-- <!-- Add to Cart Button -->
+                <asp:Button ID="btnAddToCart" runat="server" CssClass="btn btn-success px-4 py-2"
+                    Text="Add to Cart"   />--%>
+
+
+            </div>
+        </div>
+    </ItemTemplate>
 </asp:DataList>
+
+
         </center>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
