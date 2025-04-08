@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -9,52 +14,69 @@ namespace ProjectASP
         SqlConnection con;
         SqlCommand cmd;
         SqlDataAdapter da;
+        DataSet ds;
         Class1 cs;
 
         void getcon()
         {
             cs = new Class1();
-            con = cs.startcon();
+            con = cs.startcon();  // ✅ Assign the returned connection
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            getcon();
             if (!IsPostBack)
             {
-                LoadCartItems();
+                BindCartData();
             }
         }
 
-        void LoadCartItems()
+
+        private void BindCartData()
         {
-            if (Session["UserID"] == null)
+            if (Session["UserId"] != null)
+            {
+                int userId = Convert.ToInt32(Session["UserId"]);
+
+                string query = @"
+                    SELECT 
+                        C.Id AS CartId,
+                        P.Name,
+                        P.Description,
+                        P.Image,
+                        C.Quantity,
+                        C.Price,
+                        (C.Quantity * C.Price) AS TotalPrice
+                    FROM Cart C
+                    INNER JOIN Products P ON C.ProductId = P.Id
+                    WHERE C.UserId = @UserId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    DataListCart.DataSource = dt;
+                    DataListCart.DataBind();
+                }
+            }
+            else
             {
                 Response.Redirect("login2_master.aspx");
-                return;
             }
-
-            getcon();
-            int userId = Convert.ToInt32(Session["UserID"]);
-
-            string query = @"
-                SELECT 
-                    P.Name AS ProductName,
-                    C.Quantity,
-                    C.Price,
-                    (C.Quantity * C.Price) AS Total
-                FROM Cart C
-                JOIN Products P ON C.ProductId = P.Id
-                WHERE C.UserId = @UserId";
-
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@UserId", userId);
-
-            da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            gvCart.DataSource = dt;
-            gvCart.DataBind();
         }
+
+        protected void btnOrder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("payment.aspx");
+        }
+
+        //protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

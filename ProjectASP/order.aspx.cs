@@ -205,11 +205,14 @@ namespace ProjectASP
                         else
                         {
                             Response.Write("<script>alert('Error retrieving product price');</script>");
+                            return;
                         }
                     }
 
                     cmd.ExecuteNonQuery();
                     Response.Write("<script>alert('Item added to cart successfully!');</script>");
+                    Response.Redirect("AddToCart.aspx");
+
                 }
                 catch (Exception ex)
                 {

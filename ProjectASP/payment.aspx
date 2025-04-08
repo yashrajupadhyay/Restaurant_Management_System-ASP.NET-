@@ -34,7 +34,46 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
+        <style>
+    .summary-wrapper {
+        display: flex;
+        justify-content: center;
+        padding: 40px 10px;
+    }
 
+    .summary-box {
+        background-color: #ddd;
+        padding: 30px 40px;
+        border-radius: 10px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-box h2 {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .summary-box h3 {
+        font-size: 24px;
+        margin: 20px 0;
+    }
+
+    .btn-order {
+        background-color: #e46a23;
+        color: #fff;
+        padding: 10px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-order:hover {
+        background-color: #cf5c17;
+    }
+</style>
 <body>
     <div class="container-xxl bg-white p-0">
         <!-- Spinner Start -->
@@ -78,7 +117,7 @@
 
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
     <div class="container text-center my-5 pt-5 pb-4">
-        <h1 class="display-3 text-white mb-3 animated slideInDown">Payment</h1>
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Place Order</h1>
     </div>
 </div>
 
@@ -86,10 +125,10 @@
 <div class="container text-center my-5">
     <div class="card p-4" style="background-color: #d9d9d9; max-width: 500px; margin: auto; border-radius: 10px;">
         <h3 style="font-weight: bold; text-decoration: underline; color: #000;">Cart Summary</h3>
-        <p style="font-size: 18px; margin: 10px 0;">Total Amount - 500rs</p>
+       <%-- <p style="font-size: 18px; margin: 10px 0;">Total Amount - 500rs</p>
         <h2 style="font-weight: bold;">Cash On Delivery</h2>
         <button class="btn btn-warning mt-3" style="background-color: #e67e22; color: white; padding: 10px 20px; border: none; border-radius: 5px;">Place Order</button>
-    </div>
+   --%> </div>
 </div>
 
         </div>
@@ -98,6 +137,18 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <div class="summary-wrapper">
+    <div class="summary-box">
+        <h2>Cart Summary</h2>
+
+        <asp:Literal ID="ltlTotalAmount" runat="server" />
+
+        <h3>Cash On Delivery</h3>
+
+        <asp:Button ID="btnPlaceOrder" runat="server" Text="Place Order" CssClass="btn-order" OnClick="btnPlaceOrder_Click" />
+    </div>
+</div>
+
     
        <%-- <!-- Menu Start -->
         <div class="container-xxl py-5">

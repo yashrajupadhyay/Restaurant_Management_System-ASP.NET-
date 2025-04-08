@@ -1,11 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="AddToCart.aspx.cs" Inherits="ProjectASP.AddToCart" %>
-
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-          <!DOCTYPE html>
+      <!DOCTYPE html>
 <html>
 
 <head>
@@ -38,30 +35,77 @@
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: Arial;
-            margin: 30px;
-        }
+ <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f4f4;
+    }
 
-        h2 {
-            color: #333;
-        }
+    .cart-wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 80px); /* Adjust for header/footer if any */
+    }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
 
-        .table th, .table td {
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
+    .cart-item {
+        border: 1px solid #ddd;
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        gap: 20px;
+    }
 
-        .table th {
-            background-color: #f4f4f4;
-        }
-    </style>
+    .cart-item img {
+        width: 100px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .cart-details h3 {
+        margin: 0 0 10px;
+    }
+
+    .cart-details p {
+        margin: 4px 0;
+        line-height: 1.4;
+    }
+
+    .order-button-container {
+        text-align: right;
+        margin-top: auto; /* Push button to bottom if needed */
+        padding-top: 10px;
+    }
+
+    .order-button {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .order-button:hover {
+        background-color: #218838;
+    }
+</style>
 </head>
 
 <body>
@@ -90,7 +134,7 @@
                         <a href="index.aspx" class="nav-item nav-link">Home</a>
                         <a href="about.aspx" class="nav-item nav-link">About</a>
                         <a href="service.aspx" class="nav-item nav-link">Service</a>
-                        <a href="menu.aspx" class="nav-item nav-link active">Menu</a>
+                        <a href="order.aspx" class="nav-item nav-link active">Menu</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-0">
@@ -101,8 +145,8 @@
                         </div>
                         <a href="contact.aspx" class="nav-item nav-link">Contact</a>
                     </div>
-                    <%-- <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>--%>
-                    <asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE "  />
+                    <a href="booking.aspx" class="btn btn-primary py-2 px-4">Book A Table</a>
+                    <%--<asp:Button ID="btnBookTable" runat="server" class="btn btn-primary " Text="BOOK A TABLE " OnClick="btnBookTable_Click1" />--%>
                 </div>
             </nav>
 
@@ -113,7 +157,7 @@
                         <ol class="breadcrumb justify-content-center text-uppercase">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                            <li class="breadcrumb-item text-white active" aria-current="page">Add to cart</li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Product</li>
                         </ol>
                     </nav>
                 </div>
@@ -122,109 +166,33 @@
         <!-- Navbar & Hero End -->
     </div>
 
+
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <form id="form1" runat="server">
-        <h2>Your Cart Items</h2>
-        <asp:GridView ID="gvCart" runat="server" AutoGenerateColumns="False" CssClass="table">
-            <Columns>
-                <asp:BoundField DataField="ProductName" HeaderText="Product Name" />
-                <asp:BoundField DataField="Quantity" HeaderText="Quantity" />
-                <asp:BoundField DataField="Price" HeaderText="Price (₹)" DataFormatString="{0:N2}" />
-                <asp:BoundField DataField="Total" HeaderText="Total (₹)" DataFormatString="{0:N2}" />
-            </Columns>
-        </asp:GridView>
-    </form>
-</asp:Content>
+     
 
+<div class="cart-wrapper">
+    <h2>Your Cart Items</h2>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="ContentPlaceHolder3" runat="server">
-    <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container py-5">
-                <div class="row g-5">
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Company</h4>
-                        <a class="btn btn-link" href="">About Us</a>
-                        <a class="btn btn-link" href="">Contact Us</a>
-                        <a class="btn btn-link" href="">Reservation</a>
-                        <a class="btn btn-link" href="">Privacy Policy</a>
-                        <a class="btn btn-link" href="">Terms & Condition</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Contact</h4>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
-                        <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Opening</h4>
-                        <h5 class="text-light fw-normal">Monday - Saturday</h5>
-                        <p>09AM - 09PM</p>
-                        <h5 class="text-light fw-normal">Sunday</h5>
-                        <p>10AM - 08PM</p>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">Newsletter</h4>
-                        <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
-                        <div class="position-relative mx-auto" style="max-width: 400px;">
-                            <%--<input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">--%>
-                            <asp:TextBox ID="TextBox1" class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email" runat="server"></asp:TextBox>
-                            <%-- <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>--%>
-                            <asp:Button ID="Button1" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2" runat="server" Text="Button" />
-                        </div>
-                    </div>
+    <asp:DataList ID="DataListCart" runat="server" RepeatColumns="1">
+        <ItemTemplate>
+            <div class="cart-item">
+                <img src='<%# Eval("Image") %>' alt="Product" />
+                <div class="cart-details">
+                    <h3><%# Eval("Name") %></h3>
+                    <p><%# Eval("Description") %></p>
+                    <p><strong>Qty:</strong> <%# Eval("Quantity") %></p>
+                    <p><strong>Price:</strong> ₹<%# Eval("Price") %></p>
+                    <p><strong>Total:</strong> ₹<%# Eval("TotalPrice") %></p>
                 </div>
             </div>
-            <div class="container">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-
-
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+        </ItemTemplate>
+    </asp:DataList>
+    <center>
+    <div class="order-button-container">
+        <asp:Button ID="btnOrder" runat="server" Text="Place Order" CssClass="order-button" OnClick="btnOrder_Click"  />
     </div>
+        </center>
+</div>
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-</body>
-
-</html>
-</asp:Content>
+  </asp:Content>

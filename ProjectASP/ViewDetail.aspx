@@ -168,9 +168,9 @@
                     <asp:Label ID="Label2" runat="server" Text='<%# Eval("Price") %>'></asp:Label>
                 </p>
 
-               <%-- <!-- Add to Cart Button -->
+                <!-- Add to Cart Button -->
                 <asp:Button ID="btnAddToCart" runat="server" CssClass="btn btn-success px-4 py-2"
-                    Text="Add to Cart"   />--%>
+                    Text="Add to Cart"   />
 
 
             </div>
