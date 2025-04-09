@@ -11,7 +11,7 @@
         <div style="text-align:center; margin-top:50px;">
     <h2 style="color:orange;">Order Placed Successfully!</h2>
     <p>Thank you for your order. We’ll deliver it soon!</p>
-    <a href="Menu.aspx" style="color:white; background-color:orange; padding:10px 20px; text-decoration:none; border-radius:5px;">Continue Shopping</a>
+    <a href="order.aspx" style="color:white; background-color:orange; padding:10px 20px; text-decoration:none; border-radius:5px;">Continue Shopping</a>
 </div>
 
     </form>

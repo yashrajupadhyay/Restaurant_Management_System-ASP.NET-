@@ -174,20 +174,28 @@
 <div class="cart-wrapper">
     <h2>Your Cart Items</h2>
 
-    <asp:DataList ID="DataListCart" runat="server" RepeatColumns="1">
-        <ItemTemplate>
-            <div class="cart-item">
-                <img src='<%# Eval("Image") %>' alt="Product" />
-                <div class="cart-details">
-                    <h3><%# Eval("Name") %></h3>
-                    <p><%# Eval("Description") %></p>
-                    <p><strong>Qty:</strong> <%# Eval("Quantity") %></p>
-                    <p><strong>Price:</strong> ₹<%# Eval("Price") %></p>
-                    <p><strong>Total:</strong> ₹<%# Eval("TotalPrice") %></p>
-                </div>
+    <asp:DataList ID="DataListCart" runat="server" RepeatColumns="1" OnItemCommand="DataListCart_ItemCommand">
+    <ItemTemplate>
+        <div class="cart-item">
+            <img src='<%# Eval("Image") %>' alt="Product" style="height: 100px;" />
+            <div class="cart-details">
+                <h3><%# Eval("Name") %></h3>
+                <p><%# Eval("Description") %></p>
+                <p><strong>Qty:</strong> <%# Eval("Quantity") %></p>
+                <p><strong>Price:</strong> ₹<%# Eval("Price") %></p>
+                <p><strong>Total:</strong> ₹<%# Eval("TotalPrice") %></p>
+
+                <!-- ✅ Remove Button -->
+                <asp:Button ID="btnRemove" runat="server" Text="Remove"
+                    CommandName="RemoveItem"
+                    CommandArgument='<%# Eval("ProductId") %>'
+                    CssClass="order-button"
+                    OnClientClick="return confirm('Are you sure you want to remove this item?');" />
             </div>
-        </ItemTemplate>
-    </asp:DataList>
+        </div>
+    </ItemTemplate>
+</asp:DataList>
+
     <center>
     <div class="order-button-container">
         <asp:Button ID="btnOrder" runat="server" Text="Place Order" CssClass="order-button" OnClick="btnOrder_Click"  />

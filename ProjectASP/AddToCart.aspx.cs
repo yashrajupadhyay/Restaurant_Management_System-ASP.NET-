@@ -35,22 +35,24 @@ namespace ProjectASP
 
         private void BindCartData()
         {
+            getcon();
             if (Session["UserId"] != null)
             {
                 int userId = Convert.ToInt32(Session["UserId"]);
 
                 string query = @"
-                    SELECT 
-                        C.Id AS CartId,
-                        P.Name,
-                        P.Description,
-                        P.Image,
-                        C.Quantity,
-                        C.Price,
-                        (C.Quantity * C.Price) AS TotalPrice
-                    FROM Cart C
-                    INNER JOIN Products P ON C.ProductId = P.Id
-                    WHERE C.UserId = @UserId";
+            SELECT 
+                C.Id AS CartId,
+                C.ProductId, -- ✅ Required for CommandArgument
+                P.Name,
+                P.Description,
+                P.Image,
+                C.Quantity,
+                C.Price,
+                (C.Quantity * C.Price) AS TotalPrice
+            FROM Cart C
+            INNER JOIN Products P ON C.ProductId = P.Id
+            WHERE C.UserId = @UserId";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -69,9 +71,38 @@ namespace ProjectASP
             }
         }
 
+        protected void DataListCart_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            getcon();
+
+            if (e.CommandName == "RemoveItem")
+            {
+                int productId = Convert.ToInt32(e.CommandArgument);
+                string userId = Session["UserId"].ToString();
+
+                string query = "DELETE FROM Cart WHERE ProductId = @ProductId AND UserId = @UserId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ProductId", productId);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    
+                    cmd.ExecuteNonQuery();
+                    
+                }
+
+                BindCartData(); // Refresh the cart list
+            }
+        }
+
         protected void btnOrder_Click(object sender, EventArgs e)
         {
             Response.Redirect("addDetails.aspx");
+        }
+
+        protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         //protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)
