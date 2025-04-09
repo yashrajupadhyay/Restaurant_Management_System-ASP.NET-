@@ -24,7 +24,7 @@
             <label>
                 <span>Password</span>
               <%--  <input type="password">--%>
-                <asp:TextBox ID="txtpass" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtpass" runat="server" TextMode="Password"></asp:TextBox>
             </label>
             <!-- <p class="forgot-pass">Forgot password?</p> -->
            <%-- <button type="button" class="submit">Sign In</button>--%>

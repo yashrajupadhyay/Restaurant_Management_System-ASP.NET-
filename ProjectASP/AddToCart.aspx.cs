@@ -71,7 +71,7 @@ namespace ProjectASP
 
         protected void btnOrder_Click(object sender, EventArgs e)
         {
-            Response.Redirect("payment.aspx");
+            Response.Redirect("addDetails.aspx");
         }
 
         //protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)

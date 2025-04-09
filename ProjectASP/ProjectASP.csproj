@@ -69,12 +69,15 @@
   <ItemGroup>
     <Content Include="about.html" />
     <Content Include="about.aspx" />
+    <Content Include="addDetails.aspx" />
     <Content Include="AddToCart.aspx" />
+    <Content Include="Admin\AddressDetails.aspx" />
     <Content Include="Admin\Add_Category.aspx" />
     <Content Include="Admin\Add_Product.aspx" />
     <Content Include="Admin\admin.aspx" />
     <Content Include="Admin\BookingDetails.aspx" />
     <Content Include="Admin\ContactDetails.aspx" />
+    <Content Include="Admin\ShowOrders.aspx" />
     <Content Include="Admin\Users.aspx" />
     <Content Include="App_Data\emp_db.mdf" />
     <Content Include="App_Data\emp_db_log.ldf">
@@ -237,12 +240,26 @@
     <Compile Include="about.aspx.designer.cs">
       <DependentUpon>about.aspx</DependentUpon>
     </Compile>
+    <Compile Include="addDetails.aspx.cs">
+      <DependentUpon>addDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="addDetails.aspx.designer.cs">
+      <DependentUpon>addDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddToCart.aspx.cs">
       <DependentUpon>AddToCart.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="AddToCart.aspx.designer.cs">
       <DependentUpon>AddToCart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AddressDetails.aspx.cs">
+      <DependentUpon>AddressDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AddressDetails.aspx.designer.cs">
+      <DependentUpon>AddressDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Add_Category.aspx.cs">
       <DependentUpon>Add_Category.aspx</DependentUpon>
@@ -278,6 +295,13 @@
     </Compile>
     <Compile Include="Admin\ContactDetails.aspx.designer.cs">
       <DependentUpon>ContactDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ShowOrders.aspx.cs">
+      <DependentUpon>ShowOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ShowOrders.aspx.designer.cs">
+      <DependentUpon>ShowOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Users.aspx.cs">
       <DependentUpon>Users.aspx</DependentUpon>

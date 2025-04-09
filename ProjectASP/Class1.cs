@@ -30,6 +30,13 @@ namespace ProjectASP
             cmd = new SqlCommand("insert into contact_tbl (Name,Email,Subject,Message)values('"+name+"','"+email+"','"+subject+"','"+message+"')", con);
             cmd.ExecuteNonQuery();
         }
+        public void insert_addDetails(string name, string ph, string add)
+        {
+            string query = "INSERT INTO AddressDetail1_tbl (Name, PhoneNo, Address) VALUES ('" + name + "', '" + ph + "', '" + add + "')";
+            cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+        }
+
 
         public void addCategory(string name)
         {

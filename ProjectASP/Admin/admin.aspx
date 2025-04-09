@@ -62,8 +62,14 @@
             <a href="Add_Category.aspx"><i class="fas fa-tags"></i> Add Category</a>
             <a href="BookingDetails.aspx"><i class="fas fa-calendar-check"></i> Show Booking Details</a>
             <a href="ContactDetails.aspx"><i class="fas fa-address-book"></i> Show Contact Details</a>
-            
-            <!-- FIXED Logout Button -->
+
+            <!-- 🧾 New Show Orders button -->
+            <a href="ShowOrders.aspx"><i class="fas fa-receipt"></i> Show Orders</a>
+
+            <!-- 📍 New Address Details button -->
+            <a href="AddressDetails.aspx"><i class="fas fa-map-marker-alt"></i> Address Details</a>
+
+            <!-- 🚪 Logout Button -->
             <asp:Button ID="btnLogout" runat="server" Text="🚪 Logout" CssClass="logout-button" OnClick="btnLogout_Click" />
         </div>
     </form>
