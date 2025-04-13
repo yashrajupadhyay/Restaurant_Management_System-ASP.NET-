@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Add_Product.aspx.cs" Inherits="ProjectASP.Admin.Add_Product" %>
 
+<%@ Register assembly="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -51,6 +53,8 @@
         <div class="container mt-5">
             <h2 class="text-center text-white">Add Product</h2>
 
+            <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
+
             <!-- Product Form -->
             <div class="card mt-4">
                 <div class="row mb-3">
@@ -88,6 +92,9 @@
 
                 <!-- Buttons -->
                 <asp:Button ID="btnAddProduct" CssClass="btn btn-primary btn-custom" runat="server" Text="Add Product" OnClick="btnAddProduct_Click" />
+                <br />
+                <br />
+                <asp:Button ID="Button1" runat="server" Text="Report" OnClick="Button1_Click" />
 
             </div>
 

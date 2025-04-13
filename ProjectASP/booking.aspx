@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="booking.aspx.cs" Inherits="ProjectASP.booking" %>
+<%@ Register assembly="CrystalDecisions.Web, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" namespace="CrystalDecisions.Web" tagprefix="CR" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -52,6 +53,7 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
                 <a href="" class="navbar-brand p-0">
                     <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Restoran</h1>
+                    <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" />
                     <!-- <img src="img/logo.png" alt="Logo"> -->
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -202,8 +204,10 @@
                                 <div class="col-12">
                                    <%-- <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>--%>
                                     <asp:Button ID="btnbooking" class="btn btn-primary w-100 py-3" runat="server" Text="Book Now" OnClick="btnbooking_Click" />
+                                       
                                 </div>
                             </div>
+                <%--<asp:Button ID="Button2" class="btn btn-primary w-100 py-3" runat="server" Text="Report" OnClick="Button2_Click" />--%>
                         
                     </div>
                 </div>

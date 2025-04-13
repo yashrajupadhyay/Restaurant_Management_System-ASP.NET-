@@ -10,9 +10,10 @@ using System.Configuration;
 using System.IO;
 using System.Runtime.InteropServices;
 
+
 namespace ProjectASP
 {
-
+        
     public partial class booking : System.Web.UI.Page
     {
         SqlConnection con;
@@ -20,6 +21,11 @@ namespace ProjectASP
         SqlDataAdapter da;
         DataSet ds;
         Class1 cs;
+
+        //private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+        //static string Crypath = "";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             getcon();
@@ -95,5 +101,25 @@ namespace ProjectASP
                 return;
             }
         }
+
+        //protected void Button2_Click(object sender, EventArgs e)
+        //{
+        //    da = new SqlDataAdapter("select * from booking_tbl  ", cs.startcon());
+        //    ds = new DataSet();
+        //    da.Fill(ds);
+        //    string xml = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/data.xml";
+        //    ds.WriteXmlSchema(xml);
+
+        //    Crypath = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/BookTable.rpt";
+        //    cr.Load(Crypath);
+        //    cr.SetDataSource(ds);
+        //    cr.Database.Tables[0].SetDataSource(ds);
+        //    cr.Refresh();
+        //    CrystalReportViewer1.ReportSource = cr;
+
+        //    cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "BookTable");
+
+
+        //}
     }
 }

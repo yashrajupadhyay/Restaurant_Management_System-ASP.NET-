@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace ProjectASP.Admin
 {
@@ -15,35 +12,53 @@ namespace ProjectASP.Admin
         SqlCommand cmd;
         SqlDataAdapter da;
         DataSet ds;
-        Class1 cs;
+        Class1 cs = new Class1();
 
         void getcon()
         {
-            cs = new Class1();
             con = cs.startcon();
-           
+            if (con.State == ConnectionState.Closed)
+                con.Open();
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                getcon();
                 fillgrid();
             }
         }
+
         void fillgrid()
         {
-            getcon();
-            string query = "SELECT Order_Id, Cart_Id, User_Id, Product_Id, OrderDate, Status FROM Order_tbl";
-            cmd = new SqlCommand(query, con);
-            da = new SqlDataAdapter(cmd);
-            ds = new DataSet();
-            da.Fill(ds);
+            try
+            {
+                getcon();
+                string query = "SELECT Order_Id, Cart_Id, User_Id, Product_Id, OrderDate, Status FROM Order_tbl";
+                cmd = new SqlCommand(query, con);
+                da = new SqlDataAdapter(cmd);
+                ds = new DataSet();
+                da.Fill(ds);
 
-            GridView1.DataSource = ds;
-            GridView1.DataBind();
-
-            con.Close();
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    GridView1.DataSource = ds;
+                    GridView1.DataBind();
+                }
+                else
+                {
+                    GridView1.DataSource = null;
+                    GridView1.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
         }
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -58,13 +73,22 @@ namespace ProjectASP.Admin
 
         void delete_order(int id)
         {
-            getcon();
-            string query = "DELETE FROM Order_tbl WHERE Order_Id = @ID";
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@ID", id);
-            cmd.ExecuteNonQuery();
-            con.Close();
+            try
+            {
+                getcon();
+                string query = "DELETE FROM Order_tbl WHERE Order_Id = @ID";
+                cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@ID", id);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Response.Write("<script>alert('Delete Error: " + ex.Message + "');</script>");
+            }
+            finally
+            {
+                con.Close();
+            }
         }
-
     }
 }

@@ -70,7 +70,8 @@
             <a href="AddressDetails.aspx"><i class="fas fa-map-marker-alt"></i> Address Details</a>
 
             <!-- 🚪 Logout Button -->
-            <asp:Button ID="btnLogout" runat="server" Text="🚪 Logout" CssClass="logout-button" OnClick="btnLogout_Click" />
+             <a href="login2_master.aspx"><i class="fas fa-map-marker-alt"></i> Logout</a>
+           <%-- <asp:Button ID="btnLogout" runat="server" Text="🚪 Logout" CssClass="logout-button" OnClick="btnLogout_Click" />--%>
         </div>
     </form>
 </body>

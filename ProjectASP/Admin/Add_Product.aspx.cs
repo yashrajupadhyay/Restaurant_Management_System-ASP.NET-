@@ -5,6 +5,8 @@ using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace ProjectASP.Admin
 {
@@ -17,6 +19,9 @@ namespace ProjectASP.Admin
         Class1 cs;
         string fnm;
 
+        private CrystalDecisions.CrystalReports.Engine.ReportDocument cr = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+        static string Crypath = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -220,5 +225,28 @@ namespace ProjectASP.Admin
             }
         }
 
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            getcon();
+            da = new SqlDataAdapter("select * from Products  ", cs.startcon());
+            ds = new DataSet();
+            da.Fill(ds);
+            string xml = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/product1.xml";
+            ds.WriteXmlSchema(xml);
+
+
+            Crypath = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/Admin/AddProduct_Detail.rpt";
+
+
+            cr.Load(Crypath);
+            cr.SetDataSource(ds);
+            cr.Database.Tables[0].SetDataSource(ds);
+            cr.Refresh();
+
+            CrystalReportViewer1.ReportSource = cr;
+
+
+            cr.ExportToHttpResponse(ExportFormatType.PortableDocFormat, Response, true, "Product_Detail");
+        }
     }
 }
