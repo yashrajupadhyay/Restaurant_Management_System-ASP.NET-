@@ -83,7 +83,7 @@ namespace ProjectASP.Admin
             string xml = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/data2.xml";
             ds.WriteXmlSchema(xml);
 
-            Crypath = @" D:/Programming/Asp.Net/ProjectASP/ProjectASP/BTD.rpt";
+            Crypath = @"D:/Programming/Asp.Net/ProjectASP/ProjectASP/BookTable.rpt";
             cr.Load(Crypath);
             cr.SetDataSource(ds);
             cr.Database.Tables[0].SetDataSource(ds);

@@ -174,7 +174,8 @@
 <div class="cart-wrapper">
     <h2>Your Cart Items</h2>
 
-    <asp:DataList ID="DataListCart" runat="server" RepeatColumns="1" OnItemCommand="DataListCart_ItemCommand">
+<asp:DataList ID="DataListCart" runat="server" RepeatColumns="1" OnItemCommand="DataListCart_ItemCommand">
+
     <ItemTemplate>
         <div class="cart-item">
             <img src='<%# Eval("Image") %>' alt="Product" style="height: 100px;" />

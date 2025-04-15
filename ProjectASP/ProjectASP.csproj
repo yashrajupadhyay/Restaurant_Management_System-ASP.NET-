@@ -370,6 +370,12 @@
     <Compile Include="Admin\Users.aspx.designer.cs">
       <DependentUpon>Users.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\users.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>users.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="booking.aspx.cs">
       <DependentUpon>booking.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -683,6 +689,10 @@
     <EmbeddedResource Include="Admin\BookTable.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>BookTable.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin\users.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>users.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="BookTable.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

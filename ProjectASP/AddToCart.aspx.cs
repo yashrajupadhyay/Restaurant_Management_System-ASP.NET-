@@ -71,6 +71,12 @@ namespace ProjectASP
             }
         }
 
+        
+        protected void btnOrder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("addDetails.aspx");
+        }
+
         protected void DataListCart_ItemCommand(object source, DataListCommandEventArgs e)
         {
             getcon();
@@ -78,32 +84,31 @@ namespace ProjectASP
             if (e.CommandName == "RemoveItem")
             {
                 int productId = Convert.ToInt32(e.CommandArgument);
-                string userId = Session["UserId"].ToString();
+                string userId = Session["UserId"]?.ToString();
 
-                string query = "DELETE FROM Cart WHERE ProductId = @ProductId AND UserId = @UserId";
-
-                using (SqlCommand cmd = new SqlCommand(query, con))
+                if (!string.IsNullOrEmpty(userId))
                 {
-                    cmd.Parameters.AddWithValue("@ProductId", productId);
-                    cmd.Parameters.AddWithValue("@UserId", userId);
-                    
-                    cmd.ExecuteNonQuery();
-                    
-                }
+                    string query = "DELETE FROM Cart WHERE ProductId = @ProductId AND UserId = @UserId";
 
-                BindCartData(); // Refresh the cart list
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@ProductId", productId);
+                        cmd.Parameters.AddWithValue("@UserId", userId);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    BindCartData(); // Refresh the cart list
+                }
+                else
+                {
+                    Response.Redirect("Login.aspx");
+                }
             }
         }
 
-        protected void btnOrder_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("addDetails.aspx");
-        }
 
-        protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
-        }
 
         //protected void DataListCart_SelectedIndexChanged(object sender, EventArgs e)
         //{
